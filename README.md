@@ -31,6 +31,7 @@ fetch("/missing-resource")
   .catch((error) => {
     console.error("Fetch failed:", error);
   });
+```
 
 ## Why fetch() resolves on HTTP error status codes
 
