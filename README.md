@@ -31,3 +31,18 @@ fetch("/missing-resource")
   .catch((error) => {
     console.error("Fetch failed:", error);
   });
+
+## Why fetch() resolves on HTTP error status codes
+
+From the perspective of the Fetch API, receiving an HTTP response—regardless
+of its status code—means the request was successfully completed at the
+protocol level. As a result, HTTP error responses such as 404 or 500 do not
+cause the `fetch()` promise to reject.
+
+This design allows applications to inspect the response metadata, headers,
+and body even when the server indicates an error. Treating these cases as
+rejections would prevent access to useful information, such as error payloads
+returned in the response body.
+
+Instead, `fetch()` exposes the success or failure of the HTTP response through
+the `Response` object, most notably via the `ok` and `status` properties.
